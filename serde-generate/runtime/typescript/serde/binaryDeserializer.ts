@@ -9,7 +9,7 @@ export abstract class BinaryDeserializer implements Deserializer {
   public buffer: ArrayBuffer;
   public offset: number;
 
-  protected constructor(data: Uint8Array) {
+  constructor(data: Uint8Array) {
     // As we can't be sure about the origin of the data, it's better to copy it to a new buffer
     // e.g. if the data originated by: Buffer.from('16a9', 'hex'), the internal buffer would be much longer and/or different (as Buffer is some sort of a view)
     this.buffer = new ArrayBuffer(data.length);
@@ -66,7 +66,7 @@ export abstract class BinaryDeserializer implements Deserializer {
     return new DataView(this.read(4)).getUint32(0, true);
   }
 
-  public deserializeU64(): BigInt {
+  public deserializeU64(): bigint {
     const low = this.deserializeU32();
     const high = this.deserializeU32();
 
@@ -74,7 +74,7 @@ export abstract class BinaryDeserializer implements Deserializer {
     return (BigInt(high) << BinaryDeserializer.BIG_32) | BigInt(low);
   }
 
-  public deserializeU128(): BigInt {
+  public deserializeU128(): bigint {
     const low = this.deserializeU64();
     const high = this.deserializeU64();
 
@@ -94,7 +94,7 @@ export abstract class BinaryDeserializer implements Deserializer {
     return new DataView(this.read(4)).getInt32(0, true);
   }
 
-  public deserializeI64(): BigInt {
+  public deserializeI64(): bigint {
     const low = this.deserializeI32();
     const high = this.deserializeI32();
 
@@ -102,7 +102,7 @@ export abstract class BinaryDeserializer implements Deserializer {
     return (BigInt(high) << BinaryDeserializer.BIG_32) | BigInt(low);
   }
 
-  public deserializeI128(): BigInt {
+  public deserializeI128(): bigint {
     const low = this.deserializeI64();
     const high = this.deserializeI64();
 
